@@ -1,11 +1,17 @@
 package pt.talkdesk.callBilling.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class CallDetail {
+public class CallDetail implements Serializable {
+	/**
+	 * Serial version uid
+	 */
+	private static final long serialVersionUID = 5833731185209512577L;
+
 	private CallEvent event;
 	
-	private String type;
+	private CallType type;
 	
 	private Integer duration;
 	
@@ -29,11 +35,11 @@ public class CallDetail {
 		this.event = event;
 	}
 
-	public String getType() {
+	public CallType getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(CallType type) {
 		this.type = type;
 	}
 
