@@ -1,4 +1,4 @@
-package pt.talkdesk.callBilling;
+package pt.talkdesk.callBilling.initialization;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -3,12 +3,19 @@ package pt.talkdesk.callBilling.bean;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class CallDetail implements Serializable {
 	/**
 	 * Serial version uid
 	 */
 	private static final long serialVersionUID = 5833731185209512577L;
 
+	@Id
+	private String callId;
+	
 	private CallEvent event;
 	
 	private CallType type;
@@ -17,8 +24,6 @@ public class CallDetail implements Serializable {
 	
 	private String accountId;
 	
-	private String callId;
-	
 	private String talkdeskPhoneNumber;
 	
 	private String customerPhoneNumber;
@@ -26,6 +31,8 @@ public class CallDetail implements Serializable {
 	private String forwardedPhoneNumber;
 	
 	private Date timestamp;
+	
+	private Double cost;
 
 	public CallEvent getEvent() {
 		return event;
@@ -97,5 +104,13 @@ public class CallDetail implements Serializable {
 
 	public void setTimestamp(Date timestamp) {
 		this.timestamp = timestamp;
+	}
+
+	public Double getCost() {
+		return cost;
+	}
+
+	public void setCost(Double cost) {
+		this.cost = cost;
 	}	
 }
