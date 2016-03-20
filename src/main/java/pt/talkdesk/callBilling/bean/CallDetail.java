@@ -1,11 +1,15 @@
 package pt.talkdesk.callBilling.bean;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * This class should be used to store a Call Detail
@@ -13,7 +17,7 @@ import javax.persistence.IdClass;
  * @author Ricardo
  *
  */
-@IdClass(CallDetail.class)
+@IdClass(CallDetailId.class)
 @Entity
 public class CallDetail implements Serializable {
 	/**
@@ -22,6 +26,7 @@ public class CallDetail implements Serializable {
 	private static final long serialVersionUID = 5833731185209512577L;
 
 	@Id
+	@JsonProperty("call_id")
 	private String callId;
 
 	@Id
@@ -31,17 +36,23 @@ public class CallDetail implements Serializable {
 
 	private Integer duration;
 
+	@JsonProperty("account_id")
 	private String accountId;
 
+	@JsonProperty("talkdesk_phone_number")
 	private String talkdeskPhoneNumber;
 
+	@JsonProperty("customer_phone_number")
 	private String customerPhoneNumber;
 
-	private String forwardedPhoneNumber;
+	@Column(nullable = true)
+	@JsonProperty("forwarded_phone_number")
+//	@JsonProperty(required=false)
+	private String forwardedPhoneNumber = null;
 
 	private Date timestamp;
 
-	private Double cost;
+	private BigDecimal cost;
 
 	public CallEvent getEvent() {
 		return event;
@@ -115,25 +126,26 @@ public class CallDetail implements Serializable {
 		this.timestamp = timestamp;
 	}
 
-	public Double getCost() {
+	public BigDecimal getCost() {
 		return cost;
 	}
 
-	public void setCost(Double cost) {
+	public void setCost(BigDecimal cost) {
 		this.cost = cost;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof CallDetail) {
-			return this.callId.equals(((CallDetail) obj).getCallId());
+			CallDetail callDetail = (CallDetail) obj;
+			return this.callId.equals(callDetail.getCallId()) && this.event.equals(callDetail.getEvent());
 		}
 		return false;
 	}
 
 	@Override
 	public int hashCode() {
-		return this.callId.hashCode();
+		return this.callId.hashCode() + this.event.hashCode();
 	}
 
 	@Override

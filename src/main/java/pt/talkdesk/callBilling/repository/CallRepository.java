@@ -9,4 +9,6 @@ import pt.talkdesk.callBilling.bean.CallDetail;
 public interface CallRepository extends JpaRepository<CallDetail, String> {
 
 	List<CallDetail> findByAccountId(String accountId);
+
+	List<CallDetail> findByCallId(String callId);
 }

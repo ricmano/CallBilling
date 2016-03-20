@@ -1,5 +1,5 @@
 Account Id, Account Name, Margin
-default,Default Margin,0.05
+*,Default Margin,0.05
 account-1,Account 1,0.03
 account-2,Account 2,0.02
 account-3,Account 3,0.01
